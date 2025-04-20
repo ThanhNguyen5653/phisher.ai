@@ -1,4 +1,4 @@
-# Phisher.AI - Email Phishing Detection System (Frontend)
+# Phisher.AI - Email Phishing Analyzer (Frontend)
 
 ## Overview
 
