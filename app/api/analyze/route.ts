@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     }
 
     // Forward the request to the Flask backend
-    const flaskResponse = await fetch("http://127.0.0.1:5000/api/analyze", {
+    const flaskResponse = await fetch("https://phisher-ai.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
