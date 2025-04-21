@@ -13,13 +13,16 @@ export async function POST(request: Request) {
     }
 
     // Forward the request to the Flask backend
-    const flaskResponse = await fetch("https://phisher-ai.onrender.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text, subject }),
-    });
+    const flaskResponse = await fetch(
+      "https://phisher-ai.onrender.com/api/analyze",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text, subject }),
+      }
+    );
 
     // Handle Flask backend response
     if (!flaskResponse.ok) {
