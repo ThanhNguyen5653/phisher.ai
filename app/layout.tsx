@@ -4,8 +4,10 @@ import FloatingCircle from "@/components/ui/FloatingCircle";
 
 export const metadata: Metadata = {
   title: "Phisher.ai",
-  description: "Created with v0",
-  generator: "v0.dev",
+  description: "Check your emails for phishing attempts",
+  icons: {
+    icon: "/icon0.svg",
+  },
 };
 
 export default function RootLayout({
