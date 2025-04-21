@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button"; // Custom Button component for 
 import { Textarea } from "@/components/ui/textarea"; // Custom Textarea component for input
 import { AlertCircle, Loader2, Paperclip } from "lucide-react"; // Icons for error alerts and loading spinner
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"; // Custom Alert components for displaying errors
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"; // Tooltip component for UI
 import { sanitizeInput, countWords } from "@/lib/utils"; // Utility functions for input sanitization and word counting
 
 export default function EmailAnalyzer() {
@@ -101,13 +107,31 @@ export default function EmailAnalyzer() {
           className="min-h-[50px] resize-y"
           aria-label="Email Subject for analysis"
         />
-        <Textarea
-          placeholder="Paste or type your email message here..."
-          value={emailText}
-          onChange={(e) => setEmailText(e.target.value)}
-          className="min-h-[200px] resize-y"
-          aria-label="Email content for analysis"
-        />
+        <div className="space-y-2">
+          <Textarea
+            placeholder="Paste or type your email message here..."
+            value={emailText}
+            onChange={(e) => setEmailText(e.target.value)}
+            className="min-h-[200px] resize-y"
+            aria-label="Email content for analysis"
+          />
+
+          <div className="border border-gray-200 rounded-md py-1.5 px-2 flex items-center">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="cursor-not-allowed">
+                    <Paperclip className="h-4 w-4 text-gray-400" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Coming soon...</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <span className="ml-2 text-xs text-gray-500">Attach files</span>
+          </div>
+        </div>
 
         <div className="flex justify-between items-center">
           <div
