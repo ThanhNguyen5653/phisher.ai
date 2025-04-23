@@ -4,6 +4,7 @@ import type React from "react"; // Type import for React, used for type annotati
 import { useState } from "react"; // React hook for managing component state
 import { Button } from "@/components/ui/button"; // Custom Button component for UI
 import { Textarea } from "@/components/ui/textarea"; // Custom Textarea component for input
+import DOMPurify from "dompurify"; // Library for sanitizing HTML input
 import { AlertCircle, Loader2, Paperclip } from "lucide-react"; // Icons for error alerts and loading spinner
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"; // Custom Alert components for displaying errors
 import {
@@ -52,7 +53,9 @@ export default function EmailAnalyzer() {
       setIsAnalyzing(true);
 
       // Sanitize input to prevent XSS
-      const sanitizedText = sanitizeInput(emailText);
+      const sanitizedText = DOMPurify.sanitize(emailText, {
+        USE_PROFILES: { html: true },
+      });
       const sanitizedSubject = emailSubject
         ? sanitizeInput(emailSubject)
         : null;
@@ -108,12 +111,13 @@ export default function EmailAnalyzer() {
           aria-label="Email Subject for analysis"
         />
         <div className="space-y-2">
-          <Textarea
-            placeholder="Paste or type your email message here..."
-            value={emailText}
-            onChange={(e) => setEmailText(e.target.value)}
-            className="min-h-[200px] resize-y"
+          <div
+            contentEditable
+            suppressContentEditableWarning
+            className="min-h-[200px] resize-y border rounded-md p-2 focus:outline-none"
             aria-label="Email content for analysis"
+            onInput={(e) => setEmailText(e.currentTarget.innerHTML)}
+            dangerouslySetInnerHTML={{ __html: emailText }} // To preserve rich content on re-render
           />
 
           <div className="border border-gray-200 rounded-md py-1.5 px-2 flex items-center">
